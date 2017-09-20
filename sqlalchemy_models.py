@@ -32,30 +32,6 @@ class AcctV9(Base):
     stamp_inserted = Column(DateTime, primary_key=True, nullable=False)
     stamp_updated = Column(DateTime)
     
-    #Checks if entry's stamp_updated is in time window(time-5minute to time)
-    def is_in_window(self, time):
-        if self.stamp_updated >= time-timedelta(minutes=5) and self.stamp_updated <=time:
-            return True
-        else:
-            return False
-
-    @staticmethod
-    def entries_by_ip_and_time_window(session,date,ip):
-        entries=session.query(AcctV9).filter(
-            AcctV9.stamp_updated >= date -timedelta(minutes=5),
-            AcctV9.stamp_updated <= date, 
-            or_(AcctV9.ip_src == ip, AcctV9.ip_dst ==ip)
-        )
-        return entries
-
-    @staticmethod
-    def sum_bytes_by_ip_and_time_window(session,date,ip):
-        total_bytes=session.query(func.sum(AcctV9.bytes )).filter(
-            AcctV9.stamp_updated >= date -timedelta(minutes=5),
-            AcctV9.stamp_updated <= date, 
-            or_(AcctV9.ip_src == ip, AcctV9.ip_dst ==ip)
-        )
-        return total_bytes.scalar()
 
 class NeutronFipAudit(Base):
     __tablename__ = 'neutron_fip_audit'

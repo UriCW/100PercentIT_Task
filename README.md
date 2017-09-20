@@ -8,3 +8,5 @@ Ensure all data is stored in database named pmacct, you also need to modify the 
 
 To view the results run
 $python tests.py
+
+the query takes a while to process, but you should start seeing results come out as they come

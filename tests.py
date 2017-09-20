@@ -8,19 +8,18 @@ from datetime import datetime,timedelta
 class TestModel(unittest.TestCase):
     Session = sessionmaker()
 
-    
-    def test_sums_on_object(self):
-        session=self.Session()
-        some_date = datetime.strptime('2017-08-04 16:35:02' , '%Y-%m-%d %H:%M:%S')
-        some_ip = '185.74.72.9'
-        tots = AcctV9.sum_bytes_by_ip_and_time_window(session,some_date,some_ip)
-        #print "Tots: "+str(tots)
-
 
     def get_audit(self,audit,projects):
         """
             appends entries from audit tables (neutron_fip_audit,neutron_snat_audit) to projects dictionary
             and returns an updated dictionary
+            
+            returns : { 
+                project_id:[(ip,timestamp),(ip2,timestamp2)]...,
+                project_id2:[(ip3,timestamp3),(ip4,timestamp4)]...,
+                ...
+            }
+            
         """
         for e in audit:
             proj=e.PROJECT
