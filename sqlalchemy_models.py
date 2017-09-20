@@ -1,6 +1,8 @@
 # coding: utf-8
 from sqlalchemy import BigInteger, Column, DateTime, Integer, String, text
+from sqlalchemy import and_, or_
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.sql import func
 from datetime import datetime, timedelta
 
 
@@ -36,6 +38,24 @@ class AcctV9(Base):
             return True
         else:
             return False
+
+    @staticmethod
+    def entries_by_ip_and_time_window(session,date,ip):
+        entries=session.query(AcctV9).filter(
+            AcctV9.stamp_updated >= date -timedelta(minutes=5),
+            AcctV9.stamp_updated <= date, 
+            or_(AcctV9.ip_src == ip, AcctV9.ip_dst ==ip)
+        )
+        return entries
+
+    @staticmethod
+    def sum_bytes_by_ip_and_time_window(session,date,ip):
+        total_bytes=session.query(func.sum(AcctV9.bytes )).filter(
+            AcctV9.stamp_updated >= date -timedelta(minutes=5),
+            AcctV9.stamp_updated <= date, 
+            or_(AcctV9.ip_src == ip, AcctV9.ip_dst ==ip)
+        )
+        return total_bytes.scalar()
 
 class NeutronFipAudit(Base):
     __tablename__ = 'neutron_fip_audit'
