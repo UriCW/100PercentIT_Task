@@ -1,6 +1,6 @@
 # Solution to task by 100 percent IT
 
-Calculates an estimate of bytes sent of recieved to each project.
+Calculates an estimate of bytes sent or recieved by each project.
 
 ## Setup
 Ensure all data is stored in database named pmacct, you also need to modify the login details in tests.py
