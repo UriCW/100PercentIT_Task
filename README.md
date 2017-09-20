@@ -8,7 +8,7 @@ Ensure all data is stored in database named pmacct, you also need to modify the 
     def setUp(self):
         engine = create_engine('mysql://<user>:<password>@localhost/pmacct', echo=False)
 ```
-change <user>:<password> accordingly.
+and change \<user\>\:\<password\> accordingly.
 
 ## Run
 To view the results run
