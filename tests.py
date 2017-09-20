@@ -75,10 +75,6 @@ class TestModel(unittest.TestCase):
             conditions.append(condition)
         return or_(*conditions)
 
-            #cond=and_(AcctV9.stamp_updated >= time_window_start , AcctV9.stamp_updated <=time_window_end, \
-            #or_(AcctV9.ip_src==ip,AcctV9.ip_dst=ip) )
-
-
     def disabled_test_queries(self):
         """
             Test total bytes for a single project
